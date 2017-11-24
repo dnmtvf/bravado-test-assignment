@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@rails/webpacker": "^3.0.2",
+    "coffeescript": "1.12.7",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.24.1",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development ./bin/webpack-dev-server"
+  }
+}
