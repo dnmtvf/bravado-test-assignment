@@ -1,7 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './profileSearch.sss';
+import SearchBar from '../searchBar/searchBar';
+// Component list
+//ProfileSearchApp
+//  SearchBar
+//  ProfileTable
 
-export const TestComp = () => {
-  return <h1 className='test'>Test</h1>;
+const ProfileSearch = (props) => {
+  return (
+    <div className='appContainer'>
+      <div className='profileSearchContainer'>
+        <SearchBar />
+      </div>
+    </div>
+  );
 };
+
+export default ProfileSearch;

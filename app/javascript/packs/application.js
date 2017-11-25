@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { TestComp } from '../components/profileSearch/profileSearch';
+import ProfileSearch from '../components/profileSearch/profileSearch';
 
 const devAppWrapper = (App) => {
   document.addEventListener('DOMContentLoaded', () => {  
@@ -13,7 +13,7 @@ const devAppWrapper = (App) => {
 } 
 
 if(process.env.NODE_ENV === 'development') {
-  devAppWrapper(TestComp);
+  devAppWrapper(ProfileSearch);
 } else {
-  render(TestComp);
+  render(ProfileSearch);
 }
