@@ -13,8 +13,12 @@ const ProfileSearch = (props) => {
   return (
     <div className='appContainer'>
       <div className='profileSearchContainer'>
+        <div className='searchBarRow'>
         <SearchBar />
+        </div>
+        <div className='profilesRow'>
         <Profile />
+        </div>
       </div>
     </div>
   );
