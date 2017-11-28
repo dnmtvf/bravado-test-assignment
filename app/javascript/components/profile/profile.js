@@ -4,24 +4,26 @@ import './profile.sss';
 import tmpProfileImg from './tmpProfileImg.png'
 
 const Profile = (props) => {
-  return (
+  
+  const profileCard = props.profileCard.map(item => {
+    return (
     <div className="profileInfo">
-      <img src={tmpProfileImg} className='profile__image' />
+      <img src={item.avatar} className='profile__image' />
       <div className='profile__credentialsContainer'>
         <div className='profile__credentials'>
         <div className='profile__nameEmailWrap'>
           <span className='profile__personName'>
-            Josie Waters
+            {item.name}
           </span>
           <span className='profile__personEmail'>
-            alex@fisherking.co
+            {item.email}
           </span>
         </div>
         <div className='profile__personPosition'>
-          Investor Integration Supervisor
+          {item.title}
         </div>
         <div className='profile__personAddress'>
-          22745 O'Kon Parks, Ernsermouth
+          {item.address}
         </div>
         </div>
         <div className='profile__filterBtnContainer'>
@@ -29,11 +31,14 @@ const Profile = (props) => {
             SKIP SELECTION
           </button>
         </div>
-      
+    
       </div>
-      
-    </div>
-  );
+    
+    </div>)
+  })
+  
+  
+  return profileCard;
 };
 
 export default Profile;

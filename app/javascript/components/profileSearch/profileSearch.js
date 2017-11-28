@@ -9,19 +9,26 @@ import Profile from '../profile/profile';
 //  ProfileTable
 //    Profile
 
-const ProfileSearch = (props) => {
-  return (
-    <div className='appContainer'>
-      <div className='profileSearchContainer'>
-        <div className='searchBarRow'>
-        <SearchBar />
-        </div>
-        <div className='profilesRow'>
-        <Profile />
+class ProfileSearch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isFetching: this.props.isFetching};
+  }
+  
+  render() {
+    return (
+      <div className='appContainer'>
+        <div className='profileSearchContainer'>
+          <div className='searchBarRow'>
+          <SearchBar />          
+          </div>
+          <div className='profilesRow'>
+            <Profile profileCard={this.props.profiles} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default ProfileSearch;
