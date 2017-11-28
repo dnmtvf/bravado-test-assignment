@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './profileSearch.sss';
-import SearchBar from '../searchBar/searchBar';
+// import SearchBar from '../searchBar/searchBar';
 import Profile from '../profile/profile';
+import SearchBarCont from '../../containers/SearchBarCont';
 // Component list
 //ProfileSearchApp
 //  SearchBar
@@ -20,10 +21,15 @@ class ProfileSearch extends React.Component {
       <div className='appContainer'>
         <div className='profileSearchContainer'>
           <div className='searchBarRow'>
-          <SearchBar />          
+          <SearchBarCont />          
           </div>
           <div className='profilesRow'>
-            <Profile profileCard={this.props.profiles} />
+            <Profile
+              profileCard={this.props.currentSearchResults}
+              searchQuery={this.props.searchQuery}
+              selectedCards={this.props.selectedCards}
+              clickHandle={this.props.onClickSelectBtn}
+            />
           </div>
         </div>
       </div>

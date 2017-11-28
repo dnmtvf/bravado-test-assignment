@@ -6,11 +6,11 @@ import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
-import { fetchProfiles } from '../actions'
+import { fetchProfiles, updateProfilesTable } from '../actions'
 import rootReducer from '../reducers'
 
 // import ProfileSearch from '../components/profileSearch/profileSearch';
-import ProSearchCont from '../containers';
+import ProfileSearchCont from '../containers/ProfileSearchCont';
 
 const loggerMiddleware = createLogger()
 
@@ -24,8 +24,7 @@ const store = createStore(
 
 store
   .dispatch(fetchProfiles())
-  .then(() => console.log(store.getState()))
-
+  // .then(() => console.log(store.getState()))
 
 
 // document.addEventListener('DOMContentLoaded', () => {
@@ -51,7 +50,7 @@ const devAppWrapper = (App) => {
 
 if(process.env.NODE_ENV === 'development') {
   // devAppWrapper(ProfileSearch);
-  devAppWrapper(ProSearchCont);
+  devAppWrapper(ProfileSearchCont);
 } else {
-  render(ProSearchCont);
+  render(ProfileSearchCont);
 }

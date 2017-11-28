@@ -5,7 +5,7 @@ export const UPDATE_PROFILES_TABLE = 'UPDATE_PROFILES_TABLE'
 export const updateProfilesTable = (searchQuery) => {
   return {
     type: UPDATE_PROFILES_TABLE,
-    newSearchQuery
+    searchQuery
   }
 };
 
@@ -23,6 +23,14 @@ function receiveProfiles(json) {
     type: RECEIVE_PROFILES,
     profiles: json,
     fetchEnd: Date.now()
+  }
+}
+
+export const SELECT_CARD = 'SELECT_CARD'
+export const selectCard = (cardId) => {
+  return {
+    type: SELECT_CARD,
+    cardId
   }
 }
 
