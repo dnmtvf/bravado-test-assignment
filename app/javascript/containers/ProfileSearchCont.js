@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ProfileSearch from '../components/profileSearch/profileSearch';
+import ProfileSearch from '../components/ProfileSearch/ProfileSearch';
 import { selectCard } from '../actions';
 
 const mapStateToProps = (state) => {

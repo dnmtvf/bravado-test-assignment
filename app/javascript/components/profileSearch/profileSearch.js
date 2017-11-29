@@ -1,51 +1,58 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './profileSearch.sss';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Profile from '../profile/profile';
+import './ProfileSearch.sss';
+import Profile from '../Profile/Profile';
 import SearchBarCont from '../../containers/SearchBarCont';
-
 
 class ProfileSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isFetching: this.props.isFetching};
+    this.state = { isFetching: this.props.isFetching };
   }
 
-  componentWillReceiveProps(newProps){
+  componentWillReceiveProps(newProps) {
     this.setState({ isFetching: newProps.isFetching });
   }
 
-
   render() {
-    const spinnerClasses = classNames('spinnerContainer', { 'spinnerContainer-show': this.state.isFetching});
+    const spinnerContainerClassNames = classNames(
+      'ProfileSearch__spinnerContainer',
+      { 'ProfileSearch__spinnerContainer-visible': this.state.isFetching },
+    );
 
     return (
-      <div className='appContainer'>
-      <div className={spinnerClasses}>
-      <div className="spinner">
-
-<div className="bounce1"></div>
-<div className="bounce2"></div>
-<div className="bounce3"></div>
-    </div>
-    </div>
-        <div className='profileSearchContainer style-1'>
-          <div className='searchBarRow'>
-          <SearchBarCont />
+      <div className="ProfileSearch__container">
+        <div className={spinnerContainerClassNames}>
+          <div className="ProfileSearch__spinner">
+            <div className="bounce1" />
+            <div className="bounce2" />
+            <div className="bounce3" />
           </div>
-          <div className='profilesRow'>
-            <Profile
-              profileCard={this.props.currentSearchResults}
-              searchQuery={this.props.searchQuery}
-              selectedCards={this.props.selectedCards}
-              clickHandle={this.props.onClickSelectBtn}
-            />
+        </div>
+        <div className="ProfileSearch__ProfilesTableContainer ProfileSearch__scroll">
+          <div className="ProfileSearch__searchBarRow">
+            <SearchBarCont />
           </div>
+          <Profile
+            profileCard={this.props.currentSearchResults}
+            searchQuery={this.props.searchQuery}
+            selectedCards={this.props.selectedCards}
+            clickHandle={this.props.onClickSelectBtn}
+          />
         </div>
       </div>
     );
   }
+}
+
+ProfileSearch.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  currentSearchResults: PropTypes.arrayOf(PropTypes.object).isRequired,
+  searchQuery: PropTypes.string.isRequired,
+  selectedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onClickSelectBtn: PropTypes.func.isRequired,
 };
+
 
 export default ProfileSearch;
