@@ -19,7 +19,7 @@ class ProfileSearch extends React.Component {
   render() {
     return (
       <div className='appContainer'>
-        <div className='profileSearchContainer'>
+        <div className='profileSearchContainer style-1'>
           <div className='searchBarRow'>
           <SearchBarCont />          
           </div>

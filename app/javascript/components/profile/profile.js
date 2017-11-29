@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 import './profile.sss';
 import tmpProfileImg from './tmpProfileImg.png'
+
 
 const markText = (card, markStr, className, exclude) => {
   const elements = Object.entries(card);
@@ -17,23 +19,18 @@ const markText = (card, markStr, className, exclude) => {
       const preStr = value.substr(0, inIndex);
       const markedStr = value.substr(inIndex, markStr.length);
       const postStr = value.substr(inIndex + markStr.length);
-      // console.log(`pre - ${preStr}`);
-      // console.log(`mark - ${markedStr}`);
-      // console.log(`post - ${postStr}`);
-      // console.log(value.substr(inIndex, markStr.length));
-      // return Object.assign(acc, { [key]: `${preStr}<span className=${className}>${markedStr}</span>${postStr}` });
       return Object.assign(acc, { [key]: <span>{preStr}<span className={className}>{markedStr}</span>{postStr}</span> });
     }
      return Object.assign(acc, { [key]: value });
   }, {})
   
   return markedElem;
-  // console.log(markedElem);
 }
 
 const SelectBtn = (props) => {
+  const containerClasses = classNames('profile__filterBtnContainer', {'profile__filterBtnContainer-selected': props.isSelected});
   return (
-    <div className='profile__filterBtnContainer'>
+    <div className={containerClasses}>
       <button
       onClick={(e) => {
           e.preventDefault();
@@ -41,36 +38,58 @@ const SelectBtn = (props) => {
           }
           }
        className='profile__filterBtn'>
-        MARK AS SIUTABLE
+        {props.isSelected ? 'SKIP SELECTION' : 'MARK AS SIUTABLE'}
       </button>
     </div>
   )
 }
 
-const UnselectBtn = (props) => {
+const ShowMoreBtn = (props) => {
+if(props.restCards > 0) {
   return (
-    <div className='profile__filterBtnContainer-selected'>
-      <button
-      onClick={(e) => {
-          e.preventDefault();
-          props.clickHandle(props.id);
-          }
-          }
-      className='profile__filterBtn'>
-        SKIP SELECTION
-      </button>
-    </div>
-  )
+<button
+className='ShowMoreBtn'
+onClick={
+(e) => {
+  e.preventDefault();
+  // this.setState((prevState, props) => ({ showedCards: prevState.showedCards + restCards }));
+  props.clickHandle(props.restCards);
+}
+}
+>Show more...</button>
+)
 }
 
+return null;
+}
 
+class Profile extends React.Component {
 
-const Profile = (props) => {
+  constructor(props) {
+      super(props);
+      this.state = { showedCards: 25, searchResultLength: null };
+      console.log(this.props.profileCard.length)
+      this.showMoreBtnClick = this.showMoreBtnClick.bind(this);
+    }
+
+  componentWillReceiveProps(){
+  this.setState({ showedCards: 25 });
+  this.setState((prevState, props) => ({ searchResultLength: props.profileCard.length }));
+}
+
+showMoreBtnClick(restCards) {
+  this.setState((prevState, props) => ({ showedCards: prevState.showedCards + restCards }));
+}
+
+render() {  
   
-  const profileCard = props.profileCard.map(item => {
-    const markedCard = props.searchQuery.length > 0 ? markText(item, props.searchQuery, 'searchActive', ['avatar', 'id']) : item;
+  const profileCard = this.props.profileCard.map((item, index) => {
+    const isSelected = this.props.selectedCards.includes(item);
+    const markedCard = this.props.searchQuery.length > 0 ? markText(item, this.props.searchQuery, 'searchActive', ['avatar', 'id']) : item;
+    const profileInfoClasses = classNames('profileInfo', {'profileInfo-selected': isSelected});
+    if(index <= this.state.showedCards) {
     return (
-    <div className="profileInfo" key={markedCard.id}>
+    <div className={profileInfoClasses} key={markedCard.id}>
       <img src={markedCard.avatar} className='profile__image' />
       <div className='profile__credentialsContainer'>
         <div className='profile__credentials'>
@@ -86,18 +105,28 @@ const Profile = (props) => {
           {markedCard.title}
         </div>
         <div className='profile__personAddress'>
-          {markedCard.address}
+          {markedCard.address}, {markedCard.city}
         </div>
         </div>
-        {props.selectedCards.includes(item) ? <UnselectBtn clickHandle={props.clickHandle} id={markedCard.id} /> : <SelectBtn clickHandle={props.clickHandle} id={markedCard.id} />}
+        <SelectBtn clickHandle={this.props.clickHandle} id={markedCard.id} isSelected={isSelected} />
     
       </div>
     
-    </div>)
+    </div>
+  )
+}
   })
   
+  const restCards = (this.state.searchResultLength - this.state.showedCards) < 25 ? this.state.searchResultLength - this.state.showedCards : 25;
+  return <div>
+
+  {profileCard}
+  <ShowMoreBtn clickHandle={this.showMoreBtnClick} restCards={restCards} />
   
-  return profileCard;
+  </div>
+}
 };
+
+// <ShowMoreBtn clickHandle={showMoreBtnClick} restCards={restCards} />
 
 export default Profile;

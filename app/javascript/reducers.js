@@ -30,11 +30,12 @@ const filterProfiles = (state = [], filterQuery, excludeInSearch) => {
         return value.includes(filterQuery.toLowerCase());
         }
       )
-        return filteredCredentials.length;
+        return filteredCredentials.length >= 1;
     }
   )
   
-  return filteredProfiles.filter((item, index) => index <= 100);
+  // return filteredProfiles.filter((item, index) => index <= 100);
+  return filteredProfiles;
 }
 
 
@@ -58,15 +59,16 @@ const rootReducer = (
         fetchStart: action.fetchStart
       }
     case RECEIVE_PROFILES:
+        const profilesWithId = action.profiles.map((item, index) => {
+          return {...item, id: index}
+        })
         return {
           ...state,
           isFetching: false,
           fetchEnd: action.fetchEnd,
           // profiles: action.profiles,
-          profiles: action.profiles.map((item, index) => {
-            return {...item, id: index}
-          }),
-          currentSearchResult: action.profiles.filter((item, index) => index <= 100)
+          profiles: profilesWithId,
+          currentSearchResult: profilesWithId
         }
       case UPDATE_PROFILES_TABLE:
         return {
@@ -75,10 +77,10 @@ const rootReducer = (
           currentSearchResult: filterProfiles(state.profiles, action.searchQuery, state.excludeInSearch)
         }
       case SELECT_CARD:
+        const isSelected = state.selectedCards.includes(state.profiles[action.cardId]);
         return {
           ...state,
-          selectedCards: state.selectedCards.includes(state.profiles[action.cardId]) ?
-          state.selectedCards.filter(i => i.id != action.cardId)
+          selectedCards: isSelected ? state.selectedCards.filter(i => i.id != action.cardId)
           : state.selectedCards.concat(state.profiles[action.cardId]) 
         }
       default:
