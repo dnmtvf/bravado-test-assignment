@@ -5,7 +5,7 @@ import { updateProfilesTable } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    ...state.searchQuery,
+    searchQuery: state.searchQuery,
   };
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './searchBar.sss';
+import './SearchBar.sss';
 import loop from './loop.svg'; // eslint-disable-line
 
 const SearchBar = ({ searchQuery, onQueryUpdate }) => (

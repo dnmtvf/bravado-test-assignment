@@ -134,7 +134,7 @@ ShowMoreBtn.propTypes = {
 
 Profile.propTypes = {
   profileCard: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedCards: PropTypes.arrayOf(PropTypes.number, PropTypes.string).isRequired,
+  selectedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchQuery: PropTypes.string.isRequired,
   clickHandle: PropTypes.func.isRequired,
 };

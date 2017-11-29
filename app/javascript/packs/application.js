@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+// import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { fetchProfiles } from '../actions';
 import rootReducer from '../reducers';
 import ProfileSearchCont from '../containers/ProfileSearchCont';
 
-const loggerMiddleware = createLogger();
+// const loggerMiddleware = createLogger();
+// loggerMiddleware,
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware,
-  ),
+  applyMiddleware(thunkMiddleware),
 );
 
 store.dispatch(fetchProfiles());
