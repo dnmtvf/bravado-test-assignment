@@ -1,25 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import './searchBar.sss';
-import loop from './loop.svg';
+import loop from './loop.svg'; // eslint-disable-line
 
-const SearchBar = ({ searchQuery, onQueryUpdate }) => {
-  return (
-      <div className='searchBar'>
-        <form>
-          <input type="text"
-            placeholder="Search..."
-            className="searchBar__input"
-            value={searchQuery}
-            onChange={
-            (e) => {
+const SearchBar = ({ searchQuery, onQueryUpdate }) => (
+  <div className="searchBar">
+    <form>
+      <input
+        type="text"
+        placeholder="Search..."
+        className="searchBar__input"
+        value={searchQuery}
+        onChange={
+          (e) => {
             onQueryUpdate(e.target.value);
-            }
-            }
-          />
-        </form>
-      </div>
-  );
+          }
+        }
+      />
+    </form>
+  </div>
+);
+
+SearchBar.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+  onQueryUpdate: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
