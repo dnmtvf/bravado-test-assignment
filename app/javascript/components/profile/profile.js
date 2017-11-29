@@ -14,7 +14,7 @@ const markText = (card, markStr, className, exclude) => {
       return Object.assign(acc, { [key]: value });
     }
     const inIndex = value.toLowerCase().indexOf(markStr.toLowerCase());
-    
+
     if(inIndex != -1) {
       const preStr = value.substr(0, inIndex);
       const markedStr = value.substr(inIndex, markStr.length);
@@ -23,7 +23,7 @@ const markText = (card, markStr, className, exclude) => {
     }
      return Object.assign(acc, { [key]: value });
   }, {})
-  
+
   return markedElem;
 }
 
@@ -72,17 +72,17 @@ class Profile extends React.Component {
       this.showMoreBtnClick = this.showMoreBtnClick.bind(this);
     }
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps(newProps){
   this.setState({ showedCards: 25 });
-  this.setState((prevState, props) => ({ searchResultLength: props.profileCard.length }));
+  this.setState({ searchResultLength: newProps.profileCard.length });
 }
 
 showMoreBtnClick(restCards) {
   this.setState((prevState, props) => ({ showedCards: prevState.showedCards + restCards }));
 }
 
-render() {  
-  
+render() {
+
   const profileCard = this.props.profileCard.map((item, index) => {
     const isSelected = this.props.selectedCards.includes(item);
     const markedCard = this.props.searchQuery.length > 0 ? markText(item, this.props.searchQuery, 'searchActive', ['avatar', 'id']) : item;
@@ -109,20 +109,20 @@ render() {
         </div>
         </div>
         <SelectBtn clickHandle={this.props.clickHandle} id={markedCard.id} isSelected={isSelected} />
-    
+
       </div>
-    
+
     </div>
   )
 }
   })
-  
+
   const restCards = (this.state.searchResultLength - this.state.showedCards) < 25 ? this.state.searchResultLength - this.state.showedCards : 25;
   return <div>
 
   {profileCard}
   <ShowMoreBtn clickHandle={this.showMoreBtnClick} restCards={restCards} />
-  
+
   </div>
 }
 };
