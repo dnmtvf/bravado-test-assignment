@@ -5,21 +5,21 @@ import { updateProfilesTable } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    ...state.searchQuery
-  }
-}
+    ...state.searchQuery,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onQueryUpdate: newQuery => {
-      dispatch(updateProfilesTable(newQuery))
-    }
-  }
-}
+    onQueryUpdate: (newQuery) => {
+      dispatch(updateProfilesTable(newQuery));
+    },
+  };
+};
 
 const SearchBarCont = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SearchBar);
 
 export default SearchBarCont;
