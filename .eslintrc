@@ -3,9 +3,13 @@
   "extends": "airbnb",
   "env": {
         "browser": true,
+        "jest/globals": true
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
-  }
+  },
+  "plugins": [
+    "jest"
+  ]
 }

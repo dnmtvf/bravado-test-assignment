@@ -13,19 +13,26 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
+    "babel-jest": "^21.2.0",
     "babel-preset-react": "^6.24.1",
+    "caniuse-lite": "^1.0.30000782",
     "eslint": "4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
     "eslint-plugin-react": "7.4.0",
+    "jest": "^21.2.1",
+    "postcss": "^6.0.14",
     "stylelint": "^8.3.0",
     "stylelint-config-standard": "^18.0.0",
     "sugarss": "^1.0.1",
     "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
-    "start": "NODE_ENV=development ./bin/webpack-dev-server"
+    "start": "NODE_ENV=development ./bin/webpack-dev-server",
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
   }
 }
