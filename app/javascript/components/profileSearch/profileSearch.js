@@ -8,12 +8,14 @@ import SearchBarCont from '../../containers/SearchBarCont';
 class ProfileSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isFetching: this.props.isFetching };
+    this.state = { isFetching: this.props.isFetching, isLeftToDisplay: this.props.isLeftToDisplay };
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ isFetching: newProps.isFetching });
+    this.setState({ isFetching: newProps.isFetching, isLeftToDisplay: newProps.isLeftToDisplay });
   }
+
+// this.state.isRestToShow
 
   render() {
     const spinnerContainerClassNames = classNames(
@@ -35,10 +37,13 @@ class ProfileSearch extends React.Component {
             <SearchBarCont />
           </div>
           <Profile
-            profileCard={this.props.currentSearchResults}
+            profileCard={this.props.searchResults}
             searchQuery={this.props.searchQuery}
-            selectedCards={this.props.selectedCards}
-            clickHandle={this.props.onClickSelectBtn}
+            selectedProfiles={this.props.selectedProfiles}
+            onClickSelectBtn={this.props.onClickSelectBtn}
+            onClickShowMore={this.props.onClickShowMore}
+            excludedInSearch={this.props.excludedInSearch}
+            isLeftToDisplay={this.state.isLeftToDisplay}
           />
         </div>
       </div>

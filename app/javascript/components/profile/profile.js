@@ -27,14 +27,14 @@ const SelectBtn = (props) => {
 };
 
 const ShowMoreBtn = (props) => {
-  if (props.restCards > 0) {
+  if (props.isLeftToDisplay) {
     return (
       <button
         className="profile__showMoreBtn"
         onClick={
           (e) => {
             e.preventDefault();
-            props.clickHandle(props.restCards);
+            props.clickHandle();
           }
         }
       >
@@ -49,34 +49,24 @@ const ShowMoreBtn = (props) => {
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showedCards: 25, searchResultLength: null };
-    this.showMoreBtnClick = this.showMoreBtnClick.bind(this);
+    this.state = { showedCards: this.props.showedCards };
+    // this.showMoreBtnClick = this.showMoreBtnClick.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ showedCards: 25 });
-    this.setState({ searchResultLength: newProps.profileCard.length });
-  }
-
-  showMoreBtnClick(restCards) {
-    this.setState((prevState) => {
-      return {
-        showedCards: prevState.showedCards + restCards,
-      };
-    });
+    this.setState({ showedCards: newProps.showedCards });
   }
 
   render() {
     const profileCard = this.props.profileCard.map((item, index) => {
-      const isSelected = this.props.selectedCards.includes(item);
+      const isSelected = this.props.selectedProfiles.includes(item.id);
       const markedCard = this.props.searchQuery.length > 0 ?
-        markText(item, this.props.searchQuery, 'matchedText', ['avatar', 'id'])
+        markText(item, this.props.searchQuery, 'matchedText', this.props.excludedInSearch)
         : item;
       const profileEntriesContainerClassNames = classNames(
         'profile__profileEntriesContainer',
         { 'profile__profileEntriesContainer-selected': isSelected },
       );
-      if (index <= this.state.showedCards) {
         return (
           <div className={profileEntriesContainerClassNames} key={markedCard.id}>
             <img src={markedCard.avatar} alt={markedCard.name} className="profile__image" />
@@ -98,15 +88,13 @@ class Profile extends React.Component {
                 </div>
               </div>
               <SelectBtn
-                clickHandle={this.props.clickHandle}
+                clickHandle={this.props.onClickSelectBtn}
                 id={markedCard.id}
                 isSelected={isSelected}
               />
             </div>
           </div>
         );
-      }
-      return null;
     });
 
     const restCards = (this.state.searchResultLength - this.state.showedCards) < 25 ?
@@ -116,7 +104,7 @@ class Profile extends React.Component {
     return (
       <div>
         {profileCard}
-        <ShowMoreBtn clickHandle={this.showMoreBtnClick} restCards={restCards} />
+        <ShowMoreBtn clickHandle={this.props.onClickShowMore} isLeftToDisplay={this.props.isLeftToDisplay} />
       </div>);
   }
 }

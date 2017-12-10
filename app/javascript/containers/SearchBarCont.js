@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import SearchBar from '../components/SearchBar/SearchBar';
-import { updateProfilesTable } from '../actions';
+import { findProfiles } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onQueryUpdate: (newQuery) => {
-      dispatch(updateProfilesTable(newQuery));
+      dispatch(findProfiles(newQuery));
     },
   };
 };

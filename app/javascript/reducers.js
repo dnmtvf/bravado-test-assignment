@@ -1,9 +1,9 @@
 import {
-  UPDATE_PROFILES_TABLE,
+  FIND_PROFILES,
   REQUEST_PROFILES,
   RECEIVE_PROFILES,
-  SELECT_CARD,
-  SHOW_MORE,
+  SELECT_PROFILE,
+  GET_NEXT_RESULT_PAGE,
 } from './actions';
 
 const filterArrBySubstr = (arr = [], subStr, excludedProps, limit) => {
@@ -13,18 +13,42 @@ const filterArrBySubstr = (arr = [], subStr, excludedProps, limit) => {
 
   const filteredItemsCount = arr.filter((i, index) => {
     const curObj = Object.entries(i);
-    const isMatchedCount = curObj.filter((ii) => {
-      const propName = ii[0];
-      if (excludedProps.includes(propName)) {
-        return false;
+
+    // const isMatchedCount = curObj.filter((ii) => {
+    //   const propName = ii[0];
+    //   if (excludedProps.includes(propName)) {
+    //     return false;
+    //   }
+    //   const propValue = ii[1].toLowerCase();
+    //   return propValue.includes(subStr.toLowerCase());
+    // });
+
+    // const isMatchedCount = curObj.reduce((acc, item) => {
+    //   const propName = item[0];
+    //   if (excludedProps.includes(propName)) {
+    //     return acc;
+    //   }
+    //   const propValue = item[1].toLowerCase();
+    //   return propValue.includes(subStr.toLowerCase()) ? acc + 1 : acc;
+    // }, 0);
+
+    const isMatched = curObj.reduce((acc, item) => {
+      const propName = item[0];
+      // const propValue = item[1].toLowerCase();
+      const propValue = item[1];
+      // console.log(propValue.toLowerCase().includes(subStr.toLowerCase()));
+      if(!excludedProps.includes(propName) && propValue.toLowerCase().includes(subStr.toLowerCase())) {
+        return true;
       }
-      const propValue = ii[1].toLowerCase();
-      return propValue.includes(subStr.toLowerCase());
-    });
-    return isMatchedCount.length > 0 && index < limit;
+
+      return acc || false;
+    }, false);
+
+    // return isMatchedCount.length > 0 && index < limit;
+    // return isMatchedCount.length > 0 && index < limit;
+    return isMatched && index < limit;
   });
 
-  // return filteredItemsCount.filter((item, index) => index < limit);
   return filteredItemsCount;
 };
 
@@ -32,16 +56,16 @@ const rootReducer = (
   state = {
     isFetching: false,
     cacheLimit: 100,
-    initCacheLimit: 100,
+    defaultCacheLimit: 100,
     profiles: [],
-    initProfiles: [],
+    initialProfiles: [],
     searchQuery: '',
     searchResult: [],
-    showPerPage: 25,
-    showedCards: 25,
-    isRestToShow: false,
+    displayPerPage: 25,
+    displayed: 25,
+    isLeftToDisplay: false,
     searchCache: {},
-    selectedCards: [],
+    selectedProfiles: [],
     excludedInSearch: ['avatar', 'id'],
   },
   action,
@@ -53,25 +77,25 @@ const rootReducer = (
         isFetching: true,
       };
     case RECEIVE_PROFILES: {
-      const initialProfilesList = action.profiles.filter((item, index) => index < state.cacheLimit);
+      const initialProfiles = action.profiles.filter((item, index) => index < state.cacheLimit);
       return {
         ...state,
         isFetching: false,
         profiles: action.profiles,
-        searchResult: initialProfilesList,
-        initProfiles: initialProfilesList,
-        isRestToShow: initialProfilesList.length > state.showPerPage,
+        searchResult: initialProfiles,
+        initialProfiles: initialProfiles,
+        isLeftToDisplay: initialProfiles.length > state.displayPerPage,
       };
     }
-    case UPDATE_PROFILES_TABLE: {
+    case FIND_PROFILES: {
       if (state.searchCache[action.searchQuery] !== undefined) {
         return {
           ...state,
           searchQuery: action.searchQuery,
           searchResult: state.searchCache[action.searchQuery],
-          showedCards: state.showPerPage,
-          cacheLimit: state.initCacheLimit,
-          isRestToShow: state.searchCache[action.searchQuery].length > state.showPerPage,
+          displayed: state.displayPerPage,
+          cacheLimit: state.defaultCacheLimit,
+          isLeftToDisplay: state.searchCache[action.searchQuery].length > state.displayPerPage,
         };
       }
 
@@ -79,10 +103,10 @@ const rootReducer = (
         return {
           ...state,
           searchQuery: action.searchQuery,
-          searchResult: state.initProfiles,
-          showedCards: state.showPerPage,
-          cacheLimit: state.initCacheLimit,
-          isRestToShow: state.initProfiles.length > state.showPerPage,
+          searchResult: state.initialProfiles,
+          displayed: state.displayPerPage,
+          cacheLimit: state.defaultCacheLimit,
+          isLeftToDisplay: state.initialProfiles.length > state.displayPerPage,
         }
       }
 
@@ -97,28 +121,28 @@ const rootReducer = (
         ...state,
         searchQuery: action.searchQuery,
         searchResult: filteredProfiles,
-        showedCards: state.showPerPage,
-        cacheLimit: state.initCacheLimit,
+        displayed: state.displayPerPage,
+        cacheLimit: state.defaultCacheLimit,
         searchCache: {
           ...state.searchCache,
           [action.searchQuery]: filteredProfiles,
         },
-        isRestToShow: filteredProfiles.length > state.showPerPage,
+        isLeftToDisplay: filteredProfiles.length > state.displayPerPage,
       };
     }
-    case SELECT_CARD: {
-      const isSelected = state.selectedCards.includes(action.cardId);
+    case SELECT_PROFILE: {
+      const isSelected = state.selectedProfiles.includes(action.profileId);
       return {
         ...state,
-        selectedCards: isSelected ? state.selectedCards.filter(i => i !== action.cardId)
-          : state.selectedCards.concat(action.cardId),
+        selectedProfiles: isSelected ? state.selectedProfiles.filter(i => i !== action.profileId)
+          : state.selectedProfiles.concat(action.profileId),
       };
     }
-    case SHOW_MORE: {
-      const newShowedCards = state.showedCards + state.showPerPage;
+    case GET_NEXT_RESULT_PAGE: {
+      const newShowedCards = state.displayed + state.displayPerPage;
 
-      if (newShowedCards > state.cacheLimit) {
-        const newCacheLimit = state.cacheLimit + state.initCacheLimit;
+      if (newShowedCards >= state.cacheLimit) {
+        const newCacheLimit = state.cacheLimit + state.defaultCacheLimit;
         const filteredProfiles = filterArrBySubstr(
           state.profiles,
           state.searchQuery,
@@ -130,15 +154,15 @@ const rootReducer = (
           ...state,
           cacheLimit: newCacheLimit,
           searchResult: filteredProfiles,
-          showedCards: newShowedCards,
-          isRestToShow: filteredProfiles.length > state.showPerPage,
+          displayed: newShowedCards,
+          isLeftToDisplay: filteredProfiles.length > state.displayPerPage,
         };
       }
 
       return {
         ...state,
-        showedCards: newShowedCards,
-        isRestToShow: state.searchResult.length > (state.showPerPage + state.showedCards),
+        displayed: newShowedCards,
+        isLeftToDisplay: state.searchResult.length > (state.displayPerPage + state.displayed),
       };
     }
 

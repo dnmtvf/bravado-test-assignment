@@ -1,20 +1,25 @@
 import { connect } from 'react-redux';
 import ProfileSearch from '../components/ProfileSearch/ProfileSearch';
-import { selectCard } from '../actions';
+import { selectProfile, getNextResultPage } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    currentSearchResults: state.currentSearchResult,
+    searchResults: state.searchResult.filter((item, index) => index < state.displayed),
     isFetching: state.isFetching,
     searchQuery: state.searchQuery,
-    selectedCards: state.selectedCards,
+    selectedProfiles: state.selectedProfiles,
+    excludedInSearch: state.excludedInSearch,
+    isLeftToDisplay: state.isLeftToDisplay,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClickSelectBtn: (cardId) => {
-      dispatch(selectCard(cardId));
+    onClickSelectBtn: (profileId) => {
+      dispatch(selectProfile(profileId));
+    },
+    onClickShowMore: () => {
+      dispatch(getNextResultPage());
     },
   };
 };
