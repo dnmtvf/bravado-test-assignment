@@ -14,38 +14,16 @@ const filterArrBySubstr = (arr = [], subStr, excludedProps, limit) => {
   const filteredItemsCount = arr.filter((i, index) => {
     const curObj = Object.entries(i);
 
-    // const isMatchedCount = curObj.filter((ii) => {
-    //   const propName = ii[0];
-    //   if (excludedProps.includes(propName)) {
-    //     return false;
-    //   }
-    //   const propValue = ii[1].toLowerCase();
-    //   return propValue.includes(subStr.toLowerCase());
-    // });
-
-    // const isMatchedCount = curObj.reduce((acc, item) => {
-    //   const propName = item[0];
-    //   if (excludedProps.includes(propName)) {
-    //     return acc;
-    //   }
-    //   const propValue = item[1].toLowerCase();
-    //   return propValue.includes(subStr.toLowerCase()) ? acc + 1 : acc;
-    // }, 0);
-
     const isMatched = curObj.reduce((acc, item) => {
       const propName = item[0];
-      // const propValue = item[1].toLowerCase();
       const propValue = item[1];
-      // console.log(propValue.toLowerCase().includes(subStr.toLowerCase()));
-      if(!excludedProps.includes(propName) && propValue.toLowerCase().includes(subStr.toLowerCase())) {
+      if (!excludedProps.includes(propName) && propValue.toLowerCase().includes(subStr.toLowerCase())) {
         return true;
       }
 
       return acc || false;
     }, false);
 
-    // return isMatchedCount.length > 0 && index < limit;
-    // return isMatchedCount.length > 0 && index < limit;
     return isMatched && index < limit;
   });
 
@@ -83,7 +61,7 @@ const rootReducer = (
         isFetching: false,
         profiles: action.profiles,
         searchResult: initialProfiles,
-        initialProfiles: initialProfiles,
+        initialProfiles,
         isLeftToDisplay: initialProfiles.length > state.displayPerPage,
       };
     }
@@ -99,7 +77,7 @@ const rootReducer = (
         };
       }
 
-      if(action.searchQuery === '') {
+      if (action.searchQuery === '') {
         return {
           ...state,
           searchQuery: action.searchQuery,
@@ -107,7 +85,7 @@ const rootReducer = (
           displayed: state.displayPerPage,
           cacheLimit: state.defaultCacheLimit,
           isLeftToDisplay: state.initialProfiles.length > state.displayPerPage,
-        }
+        };
       }
 
       const filteredProfiles = filterArrBySubstr(

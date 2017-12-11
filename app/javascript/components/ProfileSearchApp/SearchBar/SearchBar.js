@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './SearchBar.sss';
-import loop from './loop.svg'; // eslint-disable-line
 
 const SearchBar = ({ searchQuery, onQueryUpdate }) => (
-  <div className="searchBar">
+  <div className="SearchBar">
     <form>
       <input
         type="text"
         placeholder="Search..."
-        className="searchBar__input"
+        className="SearchBar-Input"
         value={searchQuery}
         onChange={
           (e) => {

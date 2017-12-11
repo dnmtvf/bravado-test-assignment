@@ -1,0 +1,104 @@
+.ProfileCard
+  width: 100%
+  background: #fafafa
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12)
+  border-radius: 3px
+  position: relative
+
+.ProfileCard-selected
+  border: 1px solid #4765ff
+
+.ProfileCard::after
+  content: ""
+  clear: both
+  display: table
+
+.ProfileCard-Ico
+  width: 100%
+  background-color: rgba(0, 0, 0, 0.25)
+
+.ProfileCard-Name
+  padding-top: 10px
+  padding-left: 27px
+  line-height: 2rem
+  font-size: 1.5rem
+  color: rgba(0, 0, 0, 0.87)
+  /*width: 60%*/
+  /*border: 1px solid green*/
+
+.ProfileCard-Email
+  font-size: 0.87rem
+  color: rgba(0, 0, 0, 0.54)
+  padding-left: 27px
+
+.ProfileCard-JobTitle
+  padding-left: 27px
+  font-weight: bold
+  line-height: 1.25rem
+  font-size: 0.87rem
+  color: rgba(0, 0, 0, 0.543846)
+
+.ProfileCard-Address
+  padding-left: 27px
+  line-height: 1.25rem
+  font-size: 0.87rem
+  color: rgba(0, 0, 0, 0.543846)
+  margin-bottom: 2px
+
+.ProfileCard-highlight
+  background-color: #fff73b
+
+.ProfileCard-SelectBtnContainer
+  height: 50px
+  position: relative
+  border-top: 1px solid rgba(0, 0, 0, 0.12)
+
+.ProfileCard-SelectBtnContainer-selected
+  border-top: 0
+
+.ProfileCard-SelectBtn
+  width: 100%
+  border: 0
+  color: #009688
+  font-weight: 500
+  font-size: 0.87rem
+  line-height: 1.5rem
+  background: #fafafa
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+
+@media (min-width: 576px)
+  .ProfileCard-Ico
+    width: 134px
+    float: left
+    border-bottom-left-radius: 3px
+    border-top-left-radius: 3px
+
+  .ProfileCard-Name
+    overflow: auto
+    padding-top: 10px
+    padding-left: 27px
+
+  .ProfileCard-Email
+    padding: 10px 10px 0 0
+    position: absolute
+    top: 0
+    right: 0
+
+  .ProfileCard-JobTitle
+    overflow: auto
+    padding-left: 27px
+    font-weight: bold
+
+  .ProfileCard-Address
+    overflow: auto
+    padding-left: 27px
+
+  .ProfileCard-SelectBtnContainer
+    overflow: auto
+    padding-left: 32px
+
+  .ProfileCard-SelectBtn
+    width: auto
+    position: absolute

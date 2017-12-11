@@ -1,14 +1,26 @@
 import { connect } from 'react-redux';
-import ProfileSearch from '../components/ProfileSearch/ProfileSearch';
+import ProfileSearchApp from '../components/ProfileSearchApp/ProfileSearchApp';
 import { selectProfile, getNextResultPage } from '../actions';
+import highlightText from '../components/highlightText';
 
 const mapStateToProps = (state) => {
+  const searchResult = state.searchResult.map((item) => {
+    const isSelected = state.selectedProfiles.includes(item.id);
+    const highlightedItem = highlightText(
+      item,
+      state.searchQuery,
+      'ProfileCard-highlight',
+      state.excludedInSearch,
+    );
+    return {
+      ...highlightedItem,
+      isSelected,
+    };
+  }).filter((item, index) => index < state.displayed);
+
   return {
-    searchResults: state.searchResult.filter((item, index) => index < state.displayed),
+    searchResult,
     isFetching: state.isFetching,
-    searchQuery: state.searchQuery,
-    selectedProfiles: state.selectedProfiles,
-    excludedInSearch: state.excludedInSearch,
     isLeftToDisplay: state.isLeftToDisplay,
   };
 };
@@ -18,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
     onClickSelectBtn: (profileId) => {
       dispatch(selectProfile(profileId));
     },
-    onClickShowMore: () => {
+    onClickDisplayNextPage: () => {
       dispatch(getNextResultPage());
     },
   };
@@ -27,6 +39,6 @@ const mapDispatchToProps = (dispatch) => {
 const ProfileSearchCont = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ProfileSearch);
+)(ProfileSearchApp);
 
 export default ProfileSearchCont;
