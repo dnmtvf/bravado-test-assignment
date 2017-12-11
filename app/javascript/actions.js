@@ -11,7 +11,7 @@ export const findProfiles = (searchQuery) => {
 
 export const REQUEST_PROFILES = 'REQUEST_PROFILES';
 
-const requestProfiles = () => {
+export const requestProfiles = () => {
   return {
     type: REQUEST_PROFILES,
   };
@@ -19,7 +19,7 @@ const requestProfiles = () => {
 
 export const RECEIVE_PROFILES = 'RECEIVE_PROFILES';
 
-const receiveProfiles = (profiles) => {
+export const receiveProfiles = (profiles) => {
   const profilesWithId = profiles.map((item, index) => {
     return {
       ...item,
