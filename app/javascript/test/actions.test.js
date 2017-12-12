@@ -1,3 +1,7 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+// import fetch from 'cross-fetch';
+import fetchMock from 'fetch-mock';
 import {
   FIND_PROFILES,
   REQUEST_PROFILES,
@@ -9,7 +13,8 @@ import {
   receiveProfiles,
   selectProfile,
   getNextResultPage,
-} from './actions';
+  fetchProfiles,
+} from '../actions';
 
 import testProfilesArr from './testProfilesArr';
 
@@ -71,5 +76,35 @@ describe('synchronous actions creators tests', () => {
       type: GET_NEXT_RESULT_PAGE,
     };
     expect(getNextResultPage()).toEqual(expectedAction);
+  });
+});
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
+describe('async actions creators tests', () => {
+  test('should dispatch REQUEST_PROFILES action when fetch data and dispatch RECEIVE_PROFILES action', () => {
+    const mockResp = JSON.stringify([...testProfilesArr]);
+    const mockHead = new Headers();
+    mockHead.append('Content-Type': 'application/json; charset=utf-8');
+
+    fetch.mockResponse(mockResp, mockHead);
+
+    const testProfilesArrWithId = testProfilesArr.map((i, index) => {
+      return { ...i, id: index + 1 };
+    });
+    const expectedActions = [
+      { type: REQUEST_PROFILES },
+      {
+        type: RECEIVE_PROFILES,
+        profiles: [...testProfilesArrWithId],
+      },
+    ];
+    const store = mockStore({ profiles: [] });
+
+
+    return store.dispatch(fetchProfiles()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
   });
 });

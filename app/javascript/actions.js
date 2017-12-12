@@ -1,4 +1,4 @@
-import fetch from 'cross-fetch';
+// import fetch from 'cross-fetch';
 
 export const FIND_PROFILES = 'FIND_PROFILES';
 
@@ -31,6 +31,16 @@ export const receiveProfiles = (profiles) => {
     profiles: profilesWithId,
   };
 };
+
+export const RECEIVE_ERROR = 'RECEIVE_ERROR';
+
+export const receiveError = (errorObj) => {
+  return {
+    type: RECEIVE_ERROR,
+    profiles: errorObj,
+  };
+};
+
 
 export const SELECT_PROFILE = 'SELECT_PROFILE';
 
