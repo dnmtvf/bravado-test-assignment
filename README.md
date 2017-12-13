@@ -5,12 +5,12 @@
 * Assignment is to make app on React/Redux (view and model), app should fetch all 20 000 objects on loading
 
 ### My source code:
-* Whole code placed in [app/javascript](../tree/master/app/javascript)
-* Webpack entry point - [app/javascript/packs/application.js](../tree/master/app/javascript/packs/application.js)
-* Components - [app/javascript/components](../tree/master/app/javascript/packs/application.js)
-* Reducers - [app/javascript/reducers.js](../tree/master/app/javascript/packs/application.js)
-* Actions - [app/javascript/actions.js](../tree/master/app/javascript/packs/application.js)
-* Sync and async actions creators tests - [app/javascript/test/actions.test.js](../tree/master/app/javascript/packs/application.js)
+* Whole code placed in [app/javascript](./tree/master/app/javascript)
+* Webpack entry point - [app/javascript/packs/application.js](./tree/master/app/javascript/packs/application.js)
+* Components - [app/javascript/components](./tree/master/app/javascript/packs/application.js)
+* Reducers - [app/javascript/reducers.js](./tree/master/app/javascript/packs/application.js)
+* Actions - [app/javascript/actions.js](./tree/master/app/javascript/packs/application.js)
+* Sync and async actions creators tests - [app/javascript/test/actions.test.js](./tree/master/app/javascript/packs/application.js)
 * Tests for reducers and react components are in progress…
 
 ### [Production build on Github pages](https://dnmtvf.github.io/assignments/bravado)
