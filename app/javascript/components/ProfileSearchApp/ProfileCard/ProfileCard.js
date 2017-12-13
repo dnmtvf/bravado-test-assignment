@@ -27,7 +27,9 @@ const SelectBtn = (props) => {
 
 const ProfileCard = props => (
   <div className={classNames('ProfileCard', { 'ProfileCard-selected': props.profileCredentials.isSelected })}>
-    <img src={props.profileCredentials.avatar} alt={props.profileCredentials.name} className="ProfileCard-Ico" />
+    <div className="ProfileCard-IcoContainer">
+      <img src={props.profileCredentials.avatar} alt={props.profileCredentials.name} className="ProfileCard-Ico" />
+    </div>
     <div className="ProfileCard-Name">
       {props.profileCredentials.name}
     </div>
