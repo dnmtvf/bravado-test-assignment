@@ -6,11 +6,11 @@
 
 ### My source code:
 * Whole code placed in [app/javascript](./app/javascript)
-* Webpack entry point - [app/javascript/packs/application.js](./tree/master/app/javascript/packs/application.js)
-* Components - [app/javascript/components](./tree/master/app/javascript/packs/application.js)
-* Reducers - [app/javascript/reducers.js](./tree/master/app/javascript/packs/application.js)
-* Actions - [app/javascript/actions.js](./tree/master/app/javascript/packs/application.js)
-* Sync and async actions creators tests - [app/javascript/test/actions.test.js](./tree/master/app/javascript/packs/application.js)
+* Webpack entry point - [app/javascript/packs/application.js](./app/javascript/packs/application.js)
+* Components - [app/javascript/components](./app/javascript/components)
+* Reducers - [app/javascript/reducers.js](./app/javascript/reducers.js)
+* Actions - [app/javascript/actions.js](./app/javascript/actions.js)
+* Sync and async actions creators tests - [app/javascript/test/actions.test.js](./app/javascript/test/actions.test.js)(./tree/master/app/javascript/packs/application.js)
 * Tests for reducers and react components are in progress…
 
 ### [Production build on Github pages](https://dnmtvf.github.io/assignments/bravado)
