@@ -22,6 +22,8 @@
 * npm run start-dev
 * dev-server starts on localhost:3000
 
+---
+
 # Bravado quest
 
 You are suggested to implement a simple profile search application using Rails, webpacker, React + Redux. Expected technologies used are: ES6, CSS (with any pre/post processors), html.
