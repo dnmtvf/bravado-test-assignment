@@ -5,7 +5,7 @@
 * Assignment is to make app on React/Redux (view and model), app should fetch all 20 000 objects on loading
 
 ### My source code:
-* Whole code placed in [app/javascript](./tree/master/app/javascript)
+* Whole code placed in [app/javascript](../blob/master/app/javascript)
 * Webpack entry point - [app/javascript/packs/application.js](./tree/master/app/javascript/packs/application.js)
 * Components - [app/javascript/components](./tree/master/app/javascript/packs/application.js)
 * Reducers - [app/javascript/reducers.js](./tree/master/app/javascript/packs/application.js)
