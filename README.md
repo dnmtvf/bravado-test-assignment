@@ -13,7 +13,7 @@
 * Sync and async actions creators tests - [app/javascript/test/actions.test.js](./app/javascript/test/actions.test.js)
 * Tests for reducers and react components are in progress…
 
-### [Production build on Netlify](https://laughing-shannon-262cdd.netlify.com)
+### [Production build on Netlify](https://mystifying-pare-49afc2.netlify.com/)
 
 ### Run full dev enviroment with Rails backend:
 * git clone https://github.com/dnmtvf/bravado-test-assignment.git
