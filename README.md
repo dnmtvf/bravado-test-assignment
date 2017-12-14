@@ -11,7 +11,6 @@
 * Reducers - [app/javascript/reducers.js](./app/javascript/reducers.js)
 * Actions - [app/javascript/actions.js](./app/javascript/actions.js)
 * Sync and async actions creators tests - [app/javascript/test/actions.test.js](./app/javascript/test/actions.test.js)
-* Tests for reducers and react components are in progress…
 
 ### [Mocked (JSON loads from a file) and minified bundle demo on Netlify](https://mystifying-pare-49afc2.netlify.com/)
 
